@@ -16,6 +16,7 @@ import java.util.Collection;
 
 @RunWith(Parameterized.class)
 public class OrderTest {
+
     private static class TestData {
         final String firstName;
         final String lastName;
@@ -23,17 +24,19 @@ public class OrderTest {
         final String metro;
         final String phone;
         final String date;
+        final String rentPeriod;
         final boolean colorBlack;
         final String comment;
 
         TestData(String firstName, String lastName, String address, String metro, String phone,
-                 String date, boolean colorBlack, String comment) {  // ← date в конструкторе
+                 String date, String rentPeriod, boolean colorBlack, String comment) {
             this.firstName = firstName;
             this.lastName = lastName;
             this.address = address;
             this.metro = metro;
             this.phone = phone;
             this.date = date;
+            this.rentPeriod = rentPeriod;
             this.colorBlack = colorBlack;
             this.comment = comment;
         }
@@ -41,7 +44,7 @@ public class OrderTest {
 
     private WebDriver driver;
     private final String browser;
-    private final String entryPoint; // "top" | "bottom"
+    private final String entryPoint; // "top" или "bottom"
 
     public OrderTest(String browser, String entryPoint) {
         this.browser = browser;
@@ -73,7 +76,7 @@ public class OrderTest {
         MainPage mainPage = new MainPage(driver);
         mainPage.acceptCookies();
 
-        if (entryPoint.equals("top")) {
+        if ("top".equals(entryPoint)) {
             mainPage.clickTopOrder();
         } else {
             mainPage.clickBottomOrder();
@@ -82,12 +85,13 @@ public class OrderTest {
         OrderForm form = new OrderForm(driver);
         form.fillStepOne(td.firstName, td.lastName, td.address, td.metro, td.phone);
         form.goToStepTwo();
-
-
-        form.fillStepTwo(td.date, "сутки", td.colorBlack, td.comment);
+        form.fillStepTwo(td.date, td.rentPeriod, td.colorBlack, td.comment);
         form.submitOrderAndConfirm();
 
-        org.junit.Assert.assertTrue("Не появилось окно об успешном создании заказа", form.isOrderCreatedPopupVisible());
+        org.junit.Assert.assertTrue(
+                "Не появилось окно об успешном создании заказа",
+                form.isOrderCreatedPopupVisible()
+        );
     }
 
     private TestData getData() {
@@ -98,6 +102,7 @@ public class OrderTest {
                 "Сокольники",
                 "89002223311",
                 "01.11.2025",
+                "сутки",
                 true,
                 "Тестовый заказ"
         );

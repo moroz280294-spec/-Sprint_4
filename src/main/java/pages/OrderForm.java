@@ -86,7 +86,7 @@ public class OrderForm {
         driver.findElement(nextButtonLocator).click();
     }
 //заполнение полей на втором шаге
-    public void fillStepTwo(String date, String rentPeriodText, boolean colorBlack, String comment) {
+public void fillStepTwo(String date, String rentPeriodText, boolean colorBlack, String comment) {
         WebElement dateInput = driver.findElement(dateInputLocator);
         dateInput.click();
         dateInput.sendKeys(date);

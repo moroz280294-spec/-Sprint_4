@@ -48,19 +48,13 @@ public class MainPage {
         driver.findElement(cookieAcceptButtonLocator).click();
     }
 
-    // клик по верхней кнопке «Заказать»
-    public void clickTopOrder() {
-        WebElement button = driver.findElement(topOrderButtonLocator);
+    public void clickOrderButton(String position) {
+        By locator = "top".equals(position) ? topOrderButtonLocator : bottomOrderButtonLocator;
+        WebElement button = driver.findElement(locator);
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", button);
         button.click();
     }
 
-    // клик по нижней кнопке «Заказать»
-    public void clickBottomOrder() {
-        WebElement button = driver.findElement(bottomOrderButtonLocator);
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", button);
-        button.click();
-    }
 
     // выбор вопроса по индексу
     public void clickQuestionByIndex(int index) {

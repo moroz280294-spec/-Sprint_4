@@ -26,7 +26,7 @@ public class DropdownTest {
     @Parameterized.Parameters(name = "{0} | Q{1}")
     public static Collection<Object[]> params() {
         ArrayList<Object[]> data = new ArrayList<>();
-        for (String br : Arrays.asList(CHROME_BROUSER, FIREFOX_BROUSER)) {
+        for (String br : Arrays.asList(CHROME_BROWSER, FIREFOX_BROWSER)) {
             for (int i = 0; i < 8; i++) {
                 data.add(new Object[]{br, i});
             }

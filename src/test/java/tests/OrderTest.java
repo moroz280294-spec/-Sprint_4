@@ -56,7 +56,7 @@ public class OrderTest {
     @Parameterized.Parameters(name = "{0} | {1}")
     public static Collection<Object[]> params() {
         ArrayList<Object[]> data = new ArrayList<>();
-        for (String br : Arrays.asList(CHROME_BROUSER, FIREFOX_BROUSER)) {
+        for (String br : Arrays.asList(CHROME_BROWSER, FIREFOX_BROWSER)) {
             for (String ep : Arrays.asList("top", "bottom")) {
                 data.add(new Object[]{br, ep});
             }
@@ -79,12 +79,7 @@ public class OrderTest {
 
         MainPage mainPage = new MainPage(driver);
         mainPage.acceptCookies();
-
-        if ("top".equals(entryPoint)) {
-            mainPage.clickTopOrder();
-        } else {
-            mainPage.clickBottomOrder();
-        }
+        mainPage.clickOrderButton(entryPoint);
 
         OrderForm form = new OrderForm(driver);
         form.fillStepOne(td.firstName, td.lastName, td.address, td.metro, td.phone);

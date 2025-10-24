@@ -37,7 +37,7 @@ public class OrderForm {
 
     // поле «Срок аренды» (дропдаун)
     private final By rentPeriodDropdownLocator = By.cssSelector(".Dropdown-control");
-    private final By rentPeriodOptionFirstLocator = By.xpath("//*[@id=\"root\"]/div/div[2]/div[2]/div[2]/div[2]/div[1]");
+    private final By rentPeriodOptionFirstLocator = By.xpath("//div[@class='Dropdown-option' and text()='сутки']");
 
     // чекбокс «чёрный жемчуг»
     private final By blackColorCheckboxLocator = By.id("black");

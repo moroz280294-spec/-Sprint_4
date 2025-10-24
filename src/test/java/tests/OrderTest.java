@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
+import static utils.Constants.*;
+
 @RunWith(Parameterized.class)
 public class OrderTest {
 
@@ -54,7 +56,7 @@ public class OrderTest {
     @Parameterized.Parameters(name = "{0} | {1}")
     public static Collection<Object[]> params() {
         ArrayList<Object[]> data = new ArrayList<>();
-        for (String br : Arrays.asList("chrome", "firefox")) {
+        for (String br : Arrays.asList(CHROME_BROUSER, FIREFOX_BROUSER)) {
             for (String ep : Arrays.asList("top", "bottom")) {
                 data.add(new Object[]{br, ep});
             }
@@ -65,8 +67,10 @@ public class OrderTest {
     @Before
     public void setUp() {
         driver = DriverManager.createDriver(browser);
+        driver.get(BASE_URL);
         driver.manage().window().maximize();
-        driver.get("https://qa-scooter.praktikum-services.ru/");
+
+
     }
 
     @Test
@@ -85,7 +89,7 @@ public class OrderTest {
         OrderForm form = new OrderForm(driver);
         form.fillStepOne(td.firstName, td.lastName, td.address, td.metro, td.phone);
         form.goToStepTwo();
-        form.fillStepTwo(td.date, td.rentPeriod, td.colorBlack, td.comment);
+        form.fillStepTwo(td.date, td.comment);
         form.submitOrderAndConfirm();
 
         org.junit.Assert.assertTrue(

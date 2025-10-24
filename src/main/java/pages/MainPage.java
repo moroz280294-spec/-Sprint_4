@@ -6,31 +6,28 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import java.time.Duration;
+import static utils.Constants.DEFAULT_TIMEOUT;
 
 public class MainPage {
 
     private final WebDriver driver;
 
-    // Элементы главной страницы
-    // Кнопка «Принять куки»
+    // элементы главной страницы
+    // кнопка «Принять куки»
     private final By cookieAcceptButtonLocator = By.id("rcc-confirm-button");
 
-    // Единый таймаут явных ожиданий для всех браузеров
-    private static final Duration WAIT_TIMEOUT = Duration.ofSeconds(5);
-
-    // Шаблоны ID для вопросов и ответов
+    // шаблоны ID для вопросов и ответов
     private static final String QUESTION_ID_TPL = "accordion__heading-%d";
     private static final String ANSWER_ID_TPL = "accordion__panel-%d";
 
-    // Кнопка «Заказать» (верхняя)
+    // кнопка «Заказать» (верхняя)
     private final By topOrderButtonLocator = By.xpath("(//button[text()='Заказать'])[1]");
 
-    // Кнопка «Заказать» (нижняя)
+    // кнопка «Заказать» (нижняя)
     private final By bottomOrderButtonLocator = By.xpath("(//button[text()='Заказать'])[2]");
 
 
-    // Ожидаемые ответы FAQ по индексам (0..7)
+    // ожидаемые ответы по индексам (0..7)
     private static final String[] EXPECTED_ANSWERS = new String[]{
             "Сутки — 400 рублей. Оплата курьеру — наличными или картой.", // 0
             "Пока что у нас так: один заказ — один самокат. Если хотите покататься с друзьями, можете просто сделать несколько заказов — один за другим.", // 1
@@ -74,15 +71,15 @@ public class MainPage {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].scrollIntoView({block: 'center', inline: 'nearest'});", question);
 
-        // Явное ожидание кликабельности
-        WebDriverWait wait = new WebDriverWait(driver, WAIT_TIMEOUT);
+        // явное ожидание кликабельности
+        WebDriverWait wait = new WebDriverWait(driver,DEFAULT_TIMEOUT);
         wait.until(ExpectedConditions.elementToBeClickable(question));{
             question.click();
         }
     }
     // выбор ответа по индексу
     public String getAnswerTextByIndex(int index) {
-        WebDriverWait wait = new WebDriverWait(driver, WAIT_TIMEOUT);
+        WebDriverWait wait = new WebDriverWait(driver, DEFAULT_TIMEOUT);
         WebElement answer = wait.until(
                 ExpectedConditions.visibilityOfElementLocated(By.id(String.format(ANSWER_ID_TPL, index)))
         );

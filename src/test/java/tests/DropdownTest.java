@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
+import static utils.Constants.*;
+
 @RunWith(Parameterized.class)
 public class DropdownTest {
 
@@ -24,7 +26,7 @@ public class DropdownTest {
     @Parameterized.Parameters(name = "{0} | Q{1}")
     public static Collection<Object[]> params() {
         ArrayList<Object[]> data = new ArrayList<>();
-        for (String br : Arrays.asList("chrome", "firefox")) {
+        for (String br : Arrays.asList(CHROME_BROUSER, FIREFOX_BROUSER)) {
             for (int i = 0; i < 8; i++) {
                 data.add(new Object[]{br, i});
             }
@@ -40,7 +42,7 @@ public class DropdownTest {
     @Before
     public void setUp() {
         driver = DriverManager.createDriver(browser);
-        driver.get("https://qa-scooter.praktikum-services.ru/");
+        driver.get(BASE_URL);
         driver.manage().window().maximize();
     }
 

@@ -6,12 +6,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import java.time.Duration;
-import java.util.List;
+import static utils.Constants.DEFAULT_TIMEOUT;
 
 public class OrderForm {
     private final WebDriver driver;
-    private static final Duration WAIT_TIMEOUT = Duration.ofSeconds(5);
 
     // основная форма — шаг 1
     // поле «Имя»
@@ -39,7 +37,7 @@ public class OrderForm {
 
     // поле «Срок аренды» (дропдаун)
     private final By rentPeriodDropdownLocator = By.cssSelector(".Dropdown-control");
-    private final By rentPeriodOptionLocator = By.xpath("//*[@id=\"root\"]/div/div[2]/div[2]/div[2]/div[2]/div[1]");
+    private final By rentPeriodOptionFirstLocator = By.xpath("//*[@id=\"root\"]/div/div[2]/div[2]/div[2]/div[2]/div[1]");
 
     // чекбокс «чёрный жемчуг»
     private final By blackColorCheckboxLocator = By.id("black");
@@ -74,7 +72,7 @@ public class OrderForm {
 
         driver.findElement(metroInputLocator).click();
         driver.findElement(metroInputLocator).sendKeys(metro);
-        WebDriverWait wait = new WebDriverWait(driver, WAIT_TIMEOUT);
+        WebDriverWait wait = new WebDriverWait(driver, DEFAULT_TIMEOUT);
         WebElement option = wait.until(ExpectedConditions.visibilityOfElementLocated(metroOptionLocator));
         option.click();
 
@@ -86,19 +84,17 @@ public class OrderForm {
         driver.findElement(nextButtonLocator).click();
     }
 //заполнение полей на втором шаге
-public void fillStepTwo(String date, String rentPeriodText, boolean colorBlack, String comment) {
+public void fillStepTwo(String date, String comment) {
         WebElement dateInput = driver.findElement(dateInputLocator);
         dateInput.click();
         dateInput.sendKeys(date);
         dateInput.sendKeys(Keys.ENTER);
         // выбрать первый вариант срока аренды
         driver.findElement(rentPeriodDropdownLocator).click();
-        WebDriverWait wait = new WebDriverWait(driver, WAIT_TIMEOUT);
-        List<WebElement> options = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(rentPeriodOptionLocator));
-        if (!options.isEmpty()) {
-            options.get(0).click();
-        }
+        WebDriverWait wait = new WebDriverWait(driver, DEFAULT_TIMEOUT);
 
+    WebElement firstOption = wait.until(ExpectedConditions.visibilityOfElementLocated(rentPeriodOptionFirstLocator));
+    firstOption.click();
         // поставить галочку «чёрный жемчуг»
         driver.findElement(blackColorCheckboxLocator).click();
         //написать комент
@@ -112,7 +108,7 @@ public void fillStepTwo(String date, String rentPeriodText, boolean colorBlack, 
     }
 
     public boolean isOrderCreatedPopupVisible() {
-        WebDriverWait wait = new WebDriverWait(driver, WAIT_TIMEOUT);
+        WebDriverWait wait = new WebDriverWait(driver, DEFAULT_TIMEOUT);
         return wait.until(ExpectedConditions.visibilityOfElementLocated(orderCreatedHeaderLocator)).isDisplayed();
     }
 }

@@ -9,41 +9,13 @@ import org.openqa.selenium.WebDriver;
 import pages.MainPage;
 import pages.OrderForm;
 import utils.DriverManager;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-
 import static utils.Constants.*;
-
+import utils.TestDataOrder;
 @RunWith(Parameterized.class)
 public class OrderTest {
-
-    private static class TestData {
-        final String firstName;
-        final String lastName;
-        final String address;
-        final String metro;
-        final String phone;
-        final String date;
-        final String rentPeriod;
-        final boolean colorBlack;
-        final String comment;
-
-        TestData(String firstName, String lastName, String address, String metro, String phone,
-                 String date, String rentPeriod, boolean colorBlack, String comment) {
-            this.firstName = firstName;
-            this.lastName = lastName;
-            this.address = address;
-            this.metro = metro;
-            this.phone = phone;
-            this.date = date;
-            this.rentPeriod = rentPeriod;
-            this.colorBlack = colorBlack;
-            this.comment = comment;
-        }
-    }
-
     private WebDriver driver;
     private final String browser;
     private final String entryPoint; // "top" или "bottom"
@@ -75,7 +47,7 @@ public class OrderTest {
 
     @Test
     public void orderFlow_Positive_SingleDataset() {
-        TestData td = getData();
+        TestDataOrder td = getData(); // ← изменил тип
 
         MainPage mainPage = new MainPage(driver);
         mainPage.acceptCookies();
@@ -93,8 +65,8 @@ public class OrderTest {
         );
     }
 
-    private TestData getData() {
-        return new TestData(
+    private TestDataOrder getData() { // ← изменил возвращаемый тип
+        return new TestDataOrder(     // ← вызываем новый класс
                 "Алексей",
                 "Морозов",
                 "улица Пушкина, д 15",

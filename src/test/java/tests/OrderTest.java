@@ -65,8 +65,8 @@ public class OrderTest {
         );
     }
 
-    private TestDataOrder getData() { // ← изменил возвращаемый тип
-        return new TestDataOrder(     // ← вызываем новый класс
+    private TestDataOrder getData() { //  изменил возвращаемый тип
+        return new TestDataOrder(     //  вызываем новый класс
                 "Алексей",
                 "Морозов",
                 "улица Пушкина, д 15",

@@ -6,7 +6,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import static utils.Constants.DEFAULT_TIMEOUT;
+
+import static utils.Constants.*;
 
 public class MainPage {
 
@@ -15,10 +16,6 @@ public class MainPage {
     // элементы главной страницы
     // кнопка «Принять куки»
     private final By cookieAcceptButtonLocator = By.id("rcc-confirm-button");
-
-    // шаблоны ID для вопросов и ответов
-    private static final String QUESTION_ID_TPL = "accordion__heading-%d";
-    private static final String ANSWER_ID_TPL = "accordion__panel-%d";
 
     // кнопка «Заказать» (верхняя)
     private final By topOrderButtonLocator = By.xpath("(//button[text()='Заказать'])[1]");

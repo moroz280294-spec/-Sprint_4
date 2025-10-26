@@ -18,14 +18,16 @@ public class MainPage {
     private final By cookieAcceptButtonLocator = By.id("rcc-confirm-button");
 
     // кнопка «Заказать» (верхняя)
-    private final By topOrderButtonLocator = By.xpath("(//button[text()='Заказать'])[1]");
+    private final By topOrderButtonLocator =By.cssSelector(".Button_Button__ra12g");
 
     // кнопка «Заказать» (нижняя)
-    private final By bottomOrderButtonLocator = By.xpath("(//button[text()='Заказать'])[2]");
+    private final By bottomOrderButtonLocator = By.cssSelector(".Button_Button__ra12g.Button_Middle__1CSJM");
 
-
+    // шаблоны ID для вопросов и ответов
+    private static final String QUESTION_ID_TEMPLATE = "accordion__heading-%d";
+    private static final String ANSWER_ID_TEMPLATE = "accordion__panel-%d";
     // ожидаемые ответы по индексам (0..7)
-    private static final String[] EXPECTED_ANSWERS = new String[]{
+    public static final String[] EXPECTED_ANSWERS = new String[]{
             "Сутки — 400 рублей. Оплата курьеру — наличными или картой.", // 0
             "Пока что у нас так: один заказ — один самокат. Если хотите покататься с друзьями, можете просто сделать несколько заказов — один за другим.", // 1
             "Допустим, вы оформляете заказ на 8 мая. Мы привозим самокат 8 мая в течение дня. Отсчёт времени аренды начинается с момента, когда вы оплатите заказ курьеру. Если мы привезли самокат 8 мая в 20:30, суточная аренда закончится 9 мая в 20:30.", // 2
@@ -55,7 +57,7 @@ public class MainPage {
 
     // выбор вопроса по индексу
     public void clickQuestionByIndex(int index) {
-        By questionLocator = By.id(String.format(QUESTION_ID_TPL, index));
+        By questionLocator = By.id(String.format(QUESTION_ID_TEMPLATE, index));
         WebElement question = driver.findElement(questionLocator);
 
         // прокрутка к элементу
@@ -72,7 +74,7 @@ public class MainPage {
     public String getAnswerTextByIndex(int index) {
         WebDriverWait wait = new WebDriverWait(driver, DEFAULT_TIMEOUT);
         WebElement answer = wait.until(
-                ExpectedConditions.visibilityOfElementLocated(By.id(String.format(ANSWER_ID_TPL, index)))
+                ExpectedConditions.visibilityOfElementLocated(By.id(String.format(ANSWER_ID_TEMPLATE, index)))
         );
         return answer.getText();
     }

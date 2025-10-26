@@ -47,7 +47,7 @@ public class OrderForm {
     private final By commentInputLocator = By.cssSelector("input[placeholder='Комментарий для курьера']");
 
     // кнопка «Заказать» на втором шаге
-    private final By submitOrderButtonLocator = By.xpath("//button[contains(@class,'Button_Middle') and text()='Заказать']");
+    private final By submitOrderButtonLocator = By.xpath("//div[contains(@class,'Order_Buttons')]//button[text()='Заказать']");
 
     // подтверждение заказа — кнопка «Да»
     private final By confirmYesButtonLocator = By.xpath("//button[text()='Да']");
@@ -61,22 +61,19 @@ public class OrderForm {
     }
 //заполнение полей на первом шаге
     public void fillStepOne(String firstName, String lastName, String address, String metro, String phone) {
-        driver.findElement(firstNameInputLocator).clear();
+       //заполнение поля имя
         driver.findElement(firstNameInputLocator).sendKeys(firstName);
-
-        driver.findElement(lastNameInputLocator).clear();
+        //заполнение поля фамилия
         driver.findElement(lastNameInputLocator).sendKeys(lastName);
-
-        driver.findElement(addressInputLocator).clear();
+        //заполнение поля адрес
         driver.findElement(addressInputLocator).sendKeys(address);
-
+        //выбор станции метро
         driver.findElement(metroInputLocator).click();
         driver.findElement(metroInputLocator).sendKeys(metro);
         WebDriverWait wait = new WebDriverWait(driver, DEFAULT_TIMEOUT);
         WebElement option = wait.until(ExpectedConditions.visibilityOfElementLocated(metroOptionLocator));
         option.click();
-
-        driver.findElement(phoneInputLocator).clear();
+        //заполнение поля телефон
         driver.findElement(phoneInputLocator).sendKeys(phone);
     }
 //переход на второй шаг
@@ -85,6 +82,7 @@ public class OrderForm {
     }
 //заполнение полей на втором шаге
 public void fillStepTwo(String date, String comment) {
+        //выбор даты
         WebElement dateInput = driver.findElement(dateInputLocator);
         dateInput.click();
         dateInput.sendKeys(date);
@@ -101,12 +99,12 @@ public void fillStepTwo(String date, String comment) {
         driver.findElement(commentInputLocator).sendKeys(comment);
 
     }
-//нажать Заказать и подтверждение заказа
+//нажать заказать и подтверждение заказа
     public void submitOrderAndConfirm() {
         driver.findElement(submitOrderButtonLocator).click();
         driver.findElement(confirmYesButtonLocator).click();
     }
-
+//ждём окно номера заказа
     public boolean isOrderCreatedPopupVisible() {
         WebDriverWait wait = new WebDriverWait(driver, DEFAULT_TIMEOUT);
         return wait.until(ExpectedConditions.visibilityOfElementLocated(orderCreatedHeaderLocator)).isDisplayed();

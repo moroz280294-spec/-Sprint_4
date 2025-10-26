@@ -9,8 +9,6 @@ public class Constants {
     public static final Duration DEFAULT_TIMEOUT = Duration.ofSeconds(5);
     public static final String CHROME_BROWSER =   "chrome";
     public static final String FIREFOX_BROWSER =   "firefox";
-    // шаблоны ID для вопросов и ответов
-    public static final String QUESTION_ID_TPL = "accordion__heading-%d";
-    public static final String ANSWER_ID_TPL = "accordion__panel-%d";
 
-}
+
+    }

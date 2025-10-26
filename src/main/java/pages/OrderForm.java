@@ -53,7 +53,7 @@ public class OrderForm {
     private final By confirmYesButtonLocator = By.xpath("//button[text()='Да']");
 
     // окно: заголовок «Заказ оформлен»
-    private final By orderCreatedHeaderLocator = By.cssSelector(".Order_ModalHeader__3FDaJ");
+    private final By orderCreatedHeaderLocator = By.xpath("//div[text()='Заказ оформлен']");
 
     public OrderForm(WebDriver driver) {
         this.driver = driver;
